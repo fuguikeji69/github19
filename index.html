@@ -1,35 +1,217 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>正在跳转</title>
-    <script>
-        // 定义要随机跳转的3个网页地址
-        const urls = [
-            "https://bv123.cc/",
-            "https://bv123.cc/",  // 第一个跳转地址
-            "https://bv123.cc/"   // 第二个跳转地址
-        ];
-        
-        // 生成随机索引（0、1、2中的一个）
-        const randomIndex = Math.floor(Math.random() * urls.length);
-        
-        // 获取随机选中的地址
-        const targetUrl = urls[randomIndex];
-        
-        // 设置延迟1秒后跳转（可根据需要调整延迟时间，单位毫秒）
-        setTimeout(() => {
-            window.location.href = targetUrl;
-        }, 200);
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>天鼎</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Noto Serif SC",serif;}
+:root{
+    --red-main:#b80818;
+    --red-dark:#7c000a;
+    --red-light:#e6192b;
+    --gold:#d4af37;
+    --gold-light:#ffe894;
+    --gold-dark:#946f1f;
+}
+body{
+    background:linear-gradient(180deg,var(--red-dark),var(--red-main));
+    min-height:100vh;
+    overflow-x:hidden;
+    color:#fff;
+    position:relative;
+}
+/* 祥云底纹 */
+.bg-cloud{
+    position:absolute;
+    inset:0;
+    background-image:
+        url("data:image/svg+xml,%3Csvg width='180' height='100' viewBox='0 0 180 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,50 C45,30 65,30 75,45 C85,60 105,60 115,45 C125,30 145,30 160,50 C145,70 120,75 90,70 C60,75 35,70 30,50Z' fill='%23ffffff08'/%3E%3C/svg%3E");
+    background-repeat:repeat;
+    opacity:0.35;
+    pointer-events:none;
+}
+/* 金箔粒子 */
+.particle{
+    position:fixed;
+    width:6px;height:6px;
+    background:radial-gradient(circle,var(--gold-light),transparent);
+    border-radius:50%;
+    pointer-events:none;
+    animation:float 7s linear infinite;
+}
+@keyframes float{
+    0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+    10%{opacity:1;}
+    90%{opacity:1;}
+    100%{transform:translateY(-120vh) rotate(720deg);opacity:0;}
+}
+.wrap{
+    position:relative;
+    z-index:2;
+    padding:40px 20px;
+    max-width:460px;
+    margin:0 auto;
+    text-align:center;
+}
+/* 回纹边框容器 */
+.frame{
+    border:3px solid var(--gold);
+    padding:30px 22px;
+    position:relative;
+    background:rgba(120,0,9,0.42);
+    border-radius:14px;
+    box-shadow:0 0 32px #ff223355, inset 0 0 22px rgba(212,175,55,0.12);
+}
+.frame::before, .frame::after{
+    content:"";
+    position:absolute;
+    width:26px;height:26px;
+    border:3px solid var(--gold);
+}
+.frame::before{top:-9px;left:-9px;border-right:none;border-bottom:none;}
+.frame::after{bottom:-9px;right:-9px;border-left:none;border-top:none;}
+/* 鼎图标 */
+.ding-icon{
+    width:120px;
+    height:auto;
+    margin:0 auto 16px;
+    fill:var(--gold);
+}
+/* 鎏金标题 */
+.title{
+    font-size:clamp(42px,12vw,62px);
+    font-weight:700;
+    background:linear-gradient(135deg,#ffe699,#d4af37,#fff7cc,#b8860b);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    letter-spacing:12px;
+    margin-bottom:10px;
+    animation:shine 4s ease-in-out infinite alternate;
+}
+@keyframes shine{
+    0%{filter:brightness(1);}
+    100%{filter:brightness(1.28);}
+}
+.subtitle{
+    color:#ffddbb;
+    font-size:17px;
+    letter-spacing:4px;
+    margin-bottom:26px;
+}
+.desc{
+    line-height:1.8;
+    color:#ffeeee;
+    font-size:15px;
+    margin-bottom:32px;
+}
+/* 跳转按钮 */
+.btn{
+    display:block;
+    width:100%;
+    padding:16px 0;
+    margin:12px 0;
+    text-decoration:none;
+    background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));
+    color:#581c00;
+    border:none;
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:5px;
+    border-radius:10px;
+    transition:all .3s ease;
+    box-shadow:0 4px 16px #d4af3744;
+}
+.btn:active{
+    transform:scale(0.97);
+    box-shadow:0 0 20px #ffe06688;
+}
+.divider{
+    width:60%;
+    height:1px;
+    margin:26px auto;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.foot-text{
+    margin-top:20px;
+    color:#ffc8b8;
+    font-size:13px;
+    letter-spacing:2px;
+}
+/* 灯笼 */
+.lantern{
+    position:absolute;
+    width:50px;
+    height:70px;
+    top:18px;
+    animation:swing 3s ease-in-out infinite alternate;
+}
+.lantern.left{left:10px;}
+.lantern.right{right:10px;animation-delay:-1.5s;}
+@keyframes swing{
+    0%{transform:rotate(-6deg);}
+    100%{transform:rotate(6deg);}
+}
+@media(max-width:400px){
+    .title{letter-spacing:6px;}
+    .frame{padding:22px 16px;}
+    .btn{font-size:18px;padding:14px 0;}
+}
+</style>
 </head>
 <body>
-    正在跳转：<br>
-    <a href="https://bv123.cc/">链接</a><br>
+<div class="bg-cloud"></div>
+<!-- 灯笼 -->
+<svg class="lantern left" viewBox="0 0 48 68">
+    <path d="M24,8 C36,12 40,26 36,40 C32,52 16,52 12,40 C8,26 12,12 24,8 Z" fill="#dd1428" stroke="#d4af37" stroke-width="2"/>
+    <rect x="18" y="4" width="12" height="4" fill="#d4af37"/>
+    <rect x="18" y="54" width="12" height="4" fill="#d4af37"/>
+    <path d="M24,58 L24,66" stroke="#d4af37" stroke-width="2"/>
+</svg>
+<svg class="lantern right" viewBox="0 0 48 68">
+    <path d="M24,8 C36,12 40,26 36,40 C32,52 16,52 12,40 C8,26 12,12 24,8 Z" fill="#dd1428" stroke="#d4af37" stroke-width="2"/>
+    <rect x="18" y="4" width="12" height="4" fill="#d4af37"/>
+    <rect x="18" y="54" width="12" height="4" fill="#d4af37"/>
+    <path d="M24,58 L24,66" stroke="#d4af37" stroke-width="2"/>
+</svg>
 
+<div class="wrap">
+    <div class="frame">
+        <!-- 鼎SVG -->
+        <svg class="ding-icon" viewBox="0 0 120 110">
+            <path d="M20,20 L100,20 L95,85 C90,95 30,95 25,85 Z M30,25 L90,25 L86,80 C82,88 38,88 34,80 Z" />
+            <path d="M15,35 L5,35 L5,55 L15,55 M105,35 L115,35 L115,55 L105,55" />
+            <rect x="40" y="85" width="12" height="15" />
+            <rect x="68" y="85" width="12" height="15" />
+        </svg>
+        <h1 class="title">天鼎APP</h1>
+        <p class="subtitle">鼎盛千秋 · 承启万象</p>
+        <p class="desc">
+            匠心铸鼎，鸿运相伴<br>
+            国风雅韵，盛世呈祥
+        </p>
+        <!-- 三个跳转按钮，修改href里的链接即可 -->
+        <a href="https://td1888.cc/app" class="btn">天鼎H5登录链接</a>
+        <a href="" class="btn">天鼎安卓APK下载</a>
+        <a href="" class="btn">天鼎苹果安装下载</a>
+        <div class="divider"></div>
+        <p class="foot-text">© 天鼎 游戏下载</p>
+    </div>
+</div>
+
+<script>
+// 生成金箔粒子
+function createParticle(){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (4 + Math.random() * 5) + 's';
+    p.style.opacity = Math.random()*0.6+0.4;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),9000);
+}
+setInterval(createParticle,350);
+</script>
 </body>
-</html>
-
-
-
 </html>
